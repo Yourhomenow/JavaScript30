@@ -38,28 +38,76 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    let from1500 = inventors.filter((item)=>{return ((item.year >= 1500) && (item.year <= 1599))})
+    console.table(from1500)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    let fullname = inventors.reduce((prev,inventor)=>{
+      prev.push(`${inventor.first} ${inventor.last}`)
+
+      return prev
+    },[])
+
+    console.table(fullname)
+
+    let fullname2 = inventors.map(inventor=> inventor.first + " " + inventor.last)
+    console.table(fullname2)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let sortByBirth = inventors.sort((first,second)=>{
+      return first.year - second.year
+    })
+
+    console.table(sortByBirth)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-
+    let sumYearLived = inventors.reduce((prev, inventor)=>{
+      return prev + (inventor.passed - inventor.year)
+    },0)
+    console.log(sumYearLived)
     // 5. Sort the inventors by years lived
+    let sortByYearLived = inventors.sort((a,b)=>{
+      return ((b.passed - b.year)-(a.passed - a.year))
+    })
+    console.table(sortByYearLived)
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    // const category = document.querySelector('.mw-category')
+    // // const link = [...category.querySelectorAll('a')]
+    // const link = Array.from(category.querySelectorAll('a'))
+    // const de = link.map((a)=>{return a.innerText})
+    //                 .filter((textIn)=>{return textIn.includes('de')})
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortByLastName = people.sort((a,b)=>{
+      return a > b ? 1 : -1
+    })
+
+    console.table(sortByLastName)
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['ski','car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const uniqueType = data.reduce((obj,currentType)=>{
+      // if (`${currentType}` in obj){
+      //   obj[`${currentType}`] += 1
+      // } else {
+      //   obj[`${currentType}`] = 1
+      // }
+
+      if (!obj[currentType]){
+        obj[currentType] = 0;
+      }
+      obj[currentType]++
+      return obj},{})
+
+    console.table(uniqueType)
 
   </script>
 </body>
